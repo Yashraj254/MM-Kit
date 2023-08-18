@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="jbr-17" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/common/database" />
+            <option value="$PROJECT_DIR$/common/datastore" />
+            <option value="$PROJECT_DIR$/common/di" />
+            <option value="$PROJECT_DIR$/common/ui" />
+            <option value="$PROJECT_DIR$/common/utils" />
+            <option value="$PROJECT_DIR$/music" />
+            <option value="$PROJECT_DIR$/music/music_favorites" />
+            <option value="$PROJECT_DIR$/music/music_favorites/favorites_data" />
+            <option value="$PROJECT_DIR$/music/music_favorites/favorites_domain" />
+            <option value="$PROJECT_DIR$/music/music_favorites/favorites_presentation" />
+            <option value="$PROJECT_DIR$/music/music_folders" />
+            <option value="$PROJECT_DIR$/music/music_folders/folders_data" />
+            <option value="$PROJECT_DIR$/music/music_folders/folders_domain" />
+            <option value="$PROJECT_DIR$/music/music_folders/folders_presentation" />
+            <option value="$PROJECT_DIR$/music/music_player" />
+            <option value="$PROJECT_DIR$/music/music_player/player_data" />
+            <option value="$PROJECT_DIR$/music/music_player/player_domain" />
+            <option value="$PROJECT_DIR$/music/music_player/player_presentation" />
+            <option value="$PROJECT_DIR$/music/music_playlist" />
+            <option value="$PROJECT_DIR$/music/music_playlist/playlist_data" />
+            <option value="$PROJECT_DIR$/music/music_playlist/playlist_domain" />
+            <option value="$PROJECT_DIR$/music/music_playlist/playlist_presentation" />
+            <option value="$PROJECT_DIR$/music/music_settings" />
+            <option value="$PROJECT_DIR$/music/music_settings/settings_data" />
+            <option value="$PROJECT_DIR$/music/music_settings/settings_domain" />
+            <option value="$PROJECT_DIR$/music/music_settings/settings_presentation" />
+            <option value="$PROJECT_DIR$/music/music_tracks" />
+            <option value="$PROJECT_DIR$/music/music_tracks/tracks_data" />
+            <option value="$PROJECT_DIR$/music/music_tracks/tracks_domain" />
+            <option value="$PROJECT_DIR$/music/music_tracks/tracks_presentation" />
+            <option value="$PROJECT_DIR$/video" />
+            <option value="$PROJECT_DIR$/video/video_folders" />
+            <option value="$PROJECT_DIR$/video/video_folders/folders_data" />
+            <option value="$PROJECT_DIR$/video/video_folders/folders_domain" />
+            <option value="$PROJECT_DIR$/video/video_folders/folders_presentation" />
+            <option value="$PROJECT_DIR$/video/video_player" />
+            <option value="$PROJECT_DIR$/video/video_player/player_data" />
+            <option value="$PROJECT_DIR$/video/video_player/player_domain" />
+            <option value="$PROJECT_DIR$/video/video_player/player_presentation" />
+            <option value="$PROJECT_DIR$/video/video_settings" />
+            <option value="$PROJECT_DIR$/video/video_settings/settings_data" />
+            <option value="$PROJECT_DIR$/video/video_settings/settings_domain" />
+            <option value="$PROJECT_DIR$/video/video_settings/settings_presentation" />
+            <option value="$PROJECT_DIR$/video/video_tracks" />
+            <option value="$PROJECT_DIR$/video/video_tracks/tracks_data" />
+            <option value="$PROJECT_DIR$/video/video_tracks/tracks_domain" />
+            <option value="$PROJECT_DIR$/video/video_tracks/tracks_presentation" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
