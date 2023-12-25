@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.LintOptions
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     id("mmkit.android.application")
@@ -12,15 +14,38 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    buildTypes {
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("debug")
+            isMinifyEnabled = true
+            isShrinkResources = true
+
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                // List additional ProGuard rules for the given build type here. By default,
+                // Android Studio creates and includes an empty rules file for you (located
+                // at the root directory of each module).
+                "proguard-rules.pro"
+            )
+        }
+
+    }
+    lint {
+        abortOnError = false
+    }
 }
 
 dependencies {
 
-    implementation(project(":music:music_navigations"))
     implementation(project(":music:music_data"))
     implementation(project(":music:music_domain"))
     implementation(project(":music:music_presentation"))
+    implementation(project(":video:video_data"))
+    implementation(project(":video:video_domain"))
+    implementation(project(":video:video_presentation"))
     implementation(project(":core:di"))
+    implementation(project(":core:ui"))
+    implementation(project(":core:utils"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

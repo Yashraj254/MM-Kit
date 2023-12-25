@@ -16,10 +16,8 @@
             </builds>
           </compositeBuild>
         </compositeConfiguration>
-        <option name="testRunner" value="GRADLE" />
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="jbr-17" />
+        <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -35,30 +33,14 @@
             <option value="$PROJECT_DIR$/music" />
             <option value="$PROJECT_DIR$/music/music_data" />
             <option value="$PROJECT_DIR$/music/music_domain" />
-            <option value="$PROJECT_DIR$/music/music_navigations" />
-            <option value="$PROJECT_DIR$/music/music_player" />
-            <option value="$PROJECT_DIR$/music/music_player/player_data" />
-            <option value="$PROJECT_DIR$/music/music_player/player_domain" />
-            <option value="$PROJECT_DIR$/music/music_player/player_presentation" />
             <option value="$PROJECT_DIR$/music/music_presentation" />
-            <option value="$PROJECT_DIR$/music/music_settings" />
-            <option value="$PROJECT_DIR$/music/music_settings/settings_data" />
-            <option value="$PROJECT_DIR$/music/music_settings/settings_domain" />
-            <option value="$PROJECT_DIR$/music/music_settings/settings_presentation" />
             <option value="$PROJECT_DIR$/video" />
             <option value="$PROJECT_DIR$/video/video_data" />
             <option value="$PROJECT_DIR$/video/video_domain" />
-            <option value="$PROJECT_DIR$/video/video_player" />
-            <option value="$PROJECT_DIR$/video/video_player/player_data" />
-            <option value="$PROJECT_DIR$/video/video_player/player_domain" />
-            <option value="$PROJECT_DIR$/video/video_player/player_presentation" />
             <option value="$PROJECT_DIR$/video/video_presentation" />
-            <option value="$PROJECT_DIR$/video/video_settings" />
-            <option value="$PROJECT_DIR$/video/video_settings/settings_data" />
-            <option value="$PROJECT_DIR$/video/video_settings/settings_domain" />
-            <option value="$PROJECT_DIR$/video/video_settings/settings_presentation" />
           </set>
         </option>
+        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

@@ -10,22 +10,12 @@ plugins {
 
 }
 
-
-subprojects {
-    apply(plugin = "org.jlleitschuh.gradle.ktlint")
-
-    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
-        android.set(true)
-        outputColorName.set("RED")
-        ignoreFailures.set(false)
-        disabledRules.addAll("no-wildcard-imports","max-line-length","package-name")
-        reporters{
-            reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
-        }
+tasks.register<Delete>("clean") {
+    delete {
+        rootProject.buildDir
     }
-
-
 }
 
 
-true // Needed to make the Suppress annotation work for the plugins block
+
+

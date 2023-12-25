@@ -1,0 +1,4 @@
+<resources>
+    <string name="title_activity_player">PlayerActivity</string>
+    <string name="title_activity_music_player">MusicPlayerActivity</string>
+</resources>

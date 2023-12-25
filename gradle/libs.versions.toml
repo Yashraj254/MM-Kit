@@ -1,6 +1,6 @@
 [versions]
 accompanist = "0.32.0"
-androidGradlePlugin = "8.1.1"
+androidGradlePlugin = "8.2.0"
 androidMaterial = "1.9.0"
 androidxActivity = "1.7.2"
 androidxAppCompat = "1.6.1"
@@ -11,7 +11,7 @@ androidxDataStore = "1.0.0"
 androidxEspresso = "3.5.1"
 androidxHiltNavigationCompose = "1.0.0"
 androidxLifecycle = "2.6.1"
-androidxMedia3 = "1.0.2"
+androidxMedia3 = "1.1.1"
 androidxNavigation = "2.7.0"
 androidxTestCore = "1.5.0"
 androidxTestExt = "1.1.5"
@@ -29,6 +29,7 @@ landscapist = "2.2.8"
 lottie = "6.0.1"
 room = "2.5.2"
 timber = "5.0.1"
+constraintlayout = "2.1.4"
 
 
 
@@ -41,6 +42,7 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
 androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-material = { group = "androidx.compose.material", name = "material" }
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
@@ -85,6 +87,7 @@ android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", ver
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -97,6 +100,6 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 
 [bundles]
-compose = ["androidx-activity-compose", "androidx-compose-ui", "androidx-compose-ui-tooling-preview", "androidx-compose-material3", "androidx-lifecycle-runtimeCompose", "androidx-navigation-compose"]
+compose = ["androidx-activity-compose", "androidx-compose-ui", "androidx-compose-ui-tooling-preview", "androidx-compose-material3", "androidx-lifecycle-runtimeCompose", "androidx-navigation-compose","androidx-compose-material"]
 media3 = ["androidx-media3-common", "androidx-media3-exoplayer", "androidx-media3-exoplayer-dash", "androidx-media3-exoplayer-hls", "androidx-media3-exoplayer-rtsp", "androidx-media3-ui", "androidx-media3-session"]
 
