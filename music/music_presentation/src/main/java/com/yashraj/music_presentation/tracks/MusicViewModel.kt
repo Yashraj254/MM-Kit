@@ -1,5 +1,6 @@
 package com.yashraj.music_presentation.tracks
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yashraj.music_domain.models.Music
@@ -89,7 +90,7 @@ class MusicViewModel @Inject constructor(
     fun addToPlaylist(playlistId: Int, music: Music) {
         viewModelScope.launch {
             music.playlistId = playlistId
-            musicUseCases.addToPlaylist(music)
+                musicUseCases.addToPlaylist(music)
         }
     }
 

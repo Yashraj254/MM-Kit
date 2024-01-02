@@ -1,26 +1,25 @@
 package com.yashraj.music_presentation.navigation
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.yashraj.music_presentation.favorites.MusicFavoritesScreen
 import com.yashraj.music_presentation.folders.FolderTracksScreen
 import com.yashraj.music_presentation.folders.MusicDirectoriesViewModel
@@ -40,11 +39,54 @@ fun BottomNavGraph(
     val musicViewModel: MusicViewModel = hiltViewModel()
     val directoriesViewModel: MusicDirectoriesViewModel = hiltViewModel()
     val playlistViewModel: MusicPlaylistViewModel = hiltViewModel()
+
     val favoriteState = musicViewModel.favoriteMusicState.collectAsStateWithLifecycle().value
     val musicState = musicViewModel.musicState.collectAsStateWithLifecycle().value
-
+    var title by remember { mutableStateOf("MM Kit") }
+    var folderTracksTitle by remember { mutableStateOf("MM Kit") }
+    val routes = listOf(
+        BottomBarScreen.Tracks.route,
+        BottomBarScreen.Folders.route,
+        BottomBarScreen.Playlists.route,
+        BottomBarScreen.Favorites.route,
+        Screen.PlaylistTracksScreen.route,
+        Screen.FolderTracksScreen.route
+    )
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+    routes.forEachIndexed { _, _ ->
+        title = when(currentRoute){
+            Screen.PlaylistTracksScreen.route -> {
+                folderTracksTitle
+            }
+            Screen.FolderTracksScreen.route -> {
+                folderTracksTitle
+            }
+            BottomBarScreen.Tracks.route -> {
+                "Tracks"
+            }
+            BottomBarScreen.Folders.route -> {
+                "Folders"
+            }
+            BottomBarScreen.Playlists.route -> {
+                "Playlists"
+            }
+            BottomBarScreen.Favorites.route -> {
+                "Favorites"
+            }
+            else->{
+                "MM Kit"
+            }
+        }
+//         if (currentRoute == Screen.PlaylistTracksScreen.route) {
+//            title="Tracks"
+//        }
+//        if (currentRoute == Screen.FolderTracksScreen.route) {
+//             title="ABC"
+//        }
+    }
     Scaffold(
-        topBar = { TopAppBar(title = { Text(text = "MM Kit") }) },
+        topBar = { TopAppBar(title = { Text(text = title) }) },
         modifier = Modifier.fillMaxSize()
     ) {
         Box(modifier = Modifier.padding(it)) {
@@ -62,6 +104,9 @@ fun BottomNavGraph(
                 }
                 composable(route = BottomBarScreen.Folders.route) {
                     MusicFoldersScreen(
+                        folderName = {
+                            folderTracksTitle = it
+                        },
                         navigateToFolderTracksScreen = {
                             directoriesViewModel.getFolderTracks(folderPath = it)
                             navController.navigate(Screen.FolderTracksScreen.route)
@@ -70,6 +115,9 @@ fun BottomNavGraph(
                 }
                 composable(route = BottomBarScreen.Playlists.route) {
                     MusicPlaylistsScreen(
+                        playlistName = {
+                            folderTracksTitle = it
+                        },
                         navigateToPlaylistTracksScreen = {
                             playlistViewModel.getPlaylistTracks(it)
                             navController.navigate(Screen.PlaylistTracksScreen.route)
@@ -81,7 +129,7 @@ fun BottomNavGraph(
                         showPlayer = {
                             showPlayer(it)
                         },
-                        musicUiState = directoriesViewModel.musicState.collectAsState().value,
+                        musicUiState = playlistViewModel.musicState.collectAsState().value,
                     )
                 }
                 composable(route = BottomBarScreen.Favorites.route) {
@@ -93,6 +141,7 @@ fun BottomNavGraph(
                     )
                 }
                 composable(route = Screen.FolderTracksScreen.route) {
+
                     FolderTracksScreen(
                         showPlayer = {
                             showPlayer(it)

@@ -1,4 +1,4 @@
-package com.example.music_presentation.screens.playlists
+package com.yashraj.music_presentation.playlists
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddBox
 import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -84,7 +85,7 @@ fun AddToPlaylistDialog(
                             .padding(8.dp)
                             .clickable { showInputDialog = true }) {
                             Icon(
-                                imageVector = Icons.Filled.Folder,
+                                imageVector = Icons.Filled.AddBox,
                                 contentDescription = null,
                                 tint = MaterialTheme.colorScheme.secondaryContainer,
                                 modifier = Modifier.size(50.dp)

@@ -1,8 +1,12 @@
 package com.yashraj.video_presentation.navigation
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -17,6 +21,7 @@ import com.yashraj.video_presentation.folders.VideoFoldersScreen
 import com.yashraj.video_presentation.tracks.VideoTracksScreen
 import com.yashraj.video_presentation.tracks.VideoViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomNavGraph(
     navController: NavHostController,
@@ -25,27 +30,33 @@ fun BottomNavGraph(
 ) {
     val videos = videosViewModel.videoState.collectAsStateWithLifecycle().value
     val folderVideos = directoriesViewModel.videosState.collectAsState().value
+    Scaffold(
+        topBar = { TopAppBar(title = { Text(text = "MM Kit") }) },
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Box(modifier = Modifier.padding(it)) {
+            NavHost(
+                navController = navController,
+                startDestination = BottomBarScreen.Videos.route
+            ) {
+                composable(route = BottomBarScreen.Videos.route) {
+                    VideoTracksScreen(
+                        videos,
+                        fetchAllVideos = true
+                    )
+                }
+                composable(route = BottomBarScreen.Folders.route) {
+                    VideoFoldersScreen(
+                        navigateToFolderTracksScreen = {
+                            directoriesViewModel.getFolderTracks(folderPath = it)
+                            navController.navigate(Screen.FolderTracksScreen.route)
+                        }
+                    )
+                }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Log.d("TAG", "BottomNavGraph: ")
-        NavHost(navController = navController, startDestination = BottomBarScreen.Videos.route) {
-            composable(route = BottomBarScreen.Videos.route) {
-                VideoTracksScreen(
-                    videos,
-                    fetchAllVideos = true
-                )
-            }
-            composable(route = BottomBarScreen.Folders.route) {
-                VideoFoldersScreen(
-                    navigateToFolderTracksScreen = {
-                        directoriesViewModel.getFolderTracks(folderPath = it)
-                        navController.navigate(Screen.FolderTracksScreen.route)
-                    }
-                )
-            }
-
-            composable(route = Screen.FolderTracksScreen.route) {
-                FolderTracksScreen(folderVideos)
+                composable(route = Screen.FolderTracksScreen.route) {
+                    FolderTracksScreen(folderVideos)
+                }
             }
         }
     }

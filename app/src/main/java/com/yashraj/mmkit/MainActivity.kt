@@ -66,7 +66,6 @@ class MainActivity : ComponentActivity() {
                             )
                             musicViewModel.playSelectedMusic()
                         }
-
                     }
                 }
             }
@@ -85,7 +84,7 @@ class MainActivity : ComponentActivity() {
                         mutableStateOf(false)
                     }
                     if (intent.data != null) {
-                        MusicPlayerScreen(navController = rememberNavController())
+                        MusicPlayerScreen() {}
                     } else
                         if (permissionsGranted) {
                             synchronizer.startSync()
@@ -95,22 +94,19 @@ class MainActivity : ComponentActivity() {
                             Permissions {
                                 permissionsGranted = it
                             }
-
                 }
             }
         }
     }
 
     override fun onStop() {
-        Log.d("TAG", "onStop: ")
         val intent = Intent(this, MusicService::class.java)
         intent.action = "STOP_SERVICE"
         startService(intent)
         super.onStop()
     }
+
     override fun onDestroy() {
-
-
         super.onDestroy()
     }
 }

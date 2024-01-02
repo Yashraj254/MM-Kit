@@ -53,15 +53,21 @@ fun Permissions(allPermissionsGranted: (Boolean) -> Unit) {
         val observer = LifecycleEventObserver { source, event ->
             when (event) {
                 Lifecycle.Event.ON_START -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
                     multiplePermissionLauncher.launch(
                         arrayOf(
                             NeededPermission.READ_MEDIA_VIDEO.permission,
                             NeededPermission.READ_MEDIA_AUDIO.permission,
                         )
-                    )
+                    )else
+                        multiplePermissionLauncher.launch(
+                            arrayOf(
+                                NeededPermission.READ_EXTERNAL_STORAGE.permission,
+                            )
+                        )
                 }
 
-                else -> {}
+                else -> { }
             }
 
         }

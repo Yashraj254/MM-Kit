@@ -1,8 +1,10 @@
 package com.yashraj.music_data.di
 
 //import com.yashraj.music_data.service.MediaSessionCallback
+import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
@@ -56,16 +58,7 @@ object MediaControlModule {
     @Provides
     fun provideMediaLibrarySessionCallback() = MediaSessionCallback()
 
-    @UnstableApi
-    @Provides
-    @Singleton
-    fun provideMediaSession(
-        @ApplicationContext context: Context,
-        exoPlayer: ExoPlayer,
-        callback: MediaSessionCallback
-    ) = MediaSession.Builder(context, exoPlayer)
-        .setCallback(callback)
-        .build()
+
 
     @Singleton
     @Provides

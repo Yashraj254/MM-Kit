@@ -1,8 +1,6 @@
 package com.yashraj.music_presentation.player
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,8 +21,7 @@ import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.PauseCircle
 import androidx.compose.material.icons.rounded.PlayCircle
-import androidx.compose.material.icons.rounded.RepeatOne
-import androidx.compose.material.icons.rounded.RepeatOneOn
+import androidx.compose.material.icons.rounded.PlaylistAdd
 import androidx.compose.material.icons.rounded.Shuffle
 import androidx.compose.material.icons.rounded.ShuffleOn
 import androidx.compose.material.icons.rounded.SkipNext
@@ -46,25 +43,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
-import coil.request.ImageRequest
-import com.example.music_presentation.screens.playlists.AddToPlaylistDialog
-import com.google.common.graph.Graph
+import com.yashraj.music_presentation.playlists.AddToPlaylistDialog
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
 import com.yashraj.music_domain.PlayerState
-import com.yashraj.music_domain.models.Music
-import com.yashraj.music_presentation.R
-import com.yashraj.music_presentation.playlists.MusicPlaylistViewModel
-import com.yashraj.music_presentation.tracks.MusicPlaybackUiState
-import com.yashraj.music_presentation.tracks.MusicState
 import com.yashraj.music_presentation.tracks.MusicViewModel
 import com.yashraj.music_presentation.tracks.SharedViewModel
 import com.yashraj.ui.LottieLoaderAnimation
@@ -77,13 +62,10 @@ fun MusicPlayerScreen(
     sharedViewModel: SharedViewModel = hiltViewModel(),
     musicViewModel: MusicViewModel = hiltViewModel(),
     musicPlayerViewModel: MusicPlayerViewModel = hiltViewModel(),
-    playlistViewModel: MusicPlaylistViewModel = hiltViewModel(),
-    navController: NavController
+    onCollapse: () -> Unit
 ) {
-//    Log.d("TAG", "MusicPlayerScreen: ")
 
     val musicPlaybackUiState = sharedViewModel.musicPlaybackUiState
-//    val favoriteMusicState = musicViewModel.favoriteMusicState
     var showPlaylistDialog by remember {
         mutableStateOf(false)
     }
@@ -104,18 +86,37 @@ fun MusicPlayerScreen(
             .verticalScroll(rememberScrollState())
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
-            IconButton(
-                modifier = Modifier.size(24.dp),
-                onClick = {
-//                    onNavigateUp()
-                    navController.popBackStack()
-                }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Icon(
-                    imageVector = Icons.Rounded.KeyboardArrowDown,
-                    contentDescription = "Minimize music player"
-                )
+                IconButton(
+                    modifier = Modifier.size(24.dp),
+                    onClick = {
+                        onCollapse()
+
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.KeyboardArrowDown,
+                        contentDescription = "Minimize music player"
+                    )
+                }
+                IconButton(
+                    modifier = Modifier.size(24.dp),
+                    onClick = {
+                        showPlaylistDialog = true
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.PlaylistAdd,
+                        contentDescription = "Show Playlist Dialog"
+                    )
+                }
             }
+
             Spacer(modifier = Modifier.height(50.dp))
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -123,18 +124,17 @@ fun MusicPlayerScreen(
             ) {
                 with(musicPlaybackUiState) {
                     currentMusic?.run {
-//                        Log.d("TAG", "MusicPlayerScreen: $imageUri")
-                        if(!imageUri.startsWith("android.resource"))
-                        GlideImage(
-                            imageModel = { imageUri },
-                            imageOptions = ImageOptions(
-                                contentScale = ContentScale.Crop,
-                                alignment = Alignment.Center
-                            ),
-                            modifier = Modifier
-                                .size(280.dp)
-                                .clip(MaterialTheme.shapes.large)
-                        )
+                        if (!imageUri.startsWith("android.resource"))
+                            GlideImage(
+                                imageModel = { imageUri },
+                                imageOptions = ImageOptions(
+                                    contentScale = ContentScale.Crop,
+                                    alignment = Alignment.Center
+                                ),
+                                modifier = Modifier
+                                    .size(280.dp)
+                                    .clip(MaterialTheme.shapes.large)
+                            )
                         else
                             LottieLoaderAnimation(
                                 lottieRes = com.yashraj.ui.R.raw.animation_music,
@@ -253,29 +253,34 @@ fun MusicPlayerScreen(
                             imageVector = Icons.Rounded.SkipNext,
                             contentDescription = "Skip next button"
                         )
-//                        Log.d("TAG", "MusicPlayerScreen: ${currentMusic}")
+                        var favIcon by remember {
+                            mutableStateOf(Icons.Rounded.FavoriteBorder)
+                        }
+                        favIcon = if (currentMusic?.path?.let {
+                                musicViewModel.isAddedToFavorites(
+                                    it
+                                )
+                            } == true) {
+                            Icons.Rounded.Favorite
+                        } else {
+                            Icons.Rounded.FavoriteBorder
+                        }
                         Icon(
                             modifier = Modifier
                                 .size(32.dp)
                                 .clickable {
                                     if (currentMusic != null) {
-                                        if (musicViewModel.isAddedToFavorites(currentMusic.path)) {
-                                            musicViewModel.removeFromFavorites(currentMusic.path)
-                                        } else {
-                                            musicViewModel.addToFavorites(currentMusic.path)
-
-                                        }
+                                        favIcon =
+                                            if (musicViewModel.isAddedToFavorites(currentMusic.path)) {
+                                                musicViewModel.removeFromFavorites(currentMusic.path)
+                                                Icons.Rounded.FavoriteBorder
+                                            } else {
+                                                musicViewModel.addToFavorites(currentMusic.path)
+                                                Icons.Rounded.Favorite
+                                            }
                                     }
                                 },
-                            imageVector = if (currentMusic?.path?.let {
-                                    musicViewModel.isAddedToFavorites(
-                                        it
-                                    )
-                                } == true) {
-                                Icons.Rounded.Favorite
-                            } else {
-                                Icons.Rounded.FavoriteBorder
-                            },
+                            imageVector = favIcon,
                             contentDescription = "Favorite"
                         )
 //                           Icon(

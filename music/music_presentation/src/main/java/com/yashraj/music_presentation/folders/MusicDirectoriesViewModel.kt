@@ -42,7 +42,6 @@ class MusicDirectoriesViewModel @Inject constructor(private val musicUseCases: M
     fun getFolderTracks(folderPath: String){
         viewModelScope.launch(Dispatchers.IO) {
             musicUseCases.getFolderTracks.invoke(folderPath).collect{
-                Log.d("TAG", "getFolderTracks: $it $folderPath")
                 _musicState.value = MusicState(musics = it)
             }
         }

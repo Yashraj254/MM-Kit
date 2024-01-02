@@ -1,4 +1,4 @@
-package com.yashraj.music_presentation.components
+package com.yashraj.music_presentation.player
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.basicMarquee

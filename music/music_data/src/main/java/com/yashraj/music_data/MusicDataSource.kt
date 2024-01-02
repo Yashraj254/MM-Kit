@@ -99,22 +99,7 @@ class MusicDataSource @Inject constructor(
         val musicEntities = music.map {
             val file = File(it.path)
             val musicEntity = musicDao.getMusicByPath(it.path)
-            musicEntity?.copy(
-                album = it.album,
-                albumId = it.albumId,
-                artist = it.artist,
-                artistId = it.artistId,
-                dateAdded = it.dateAdded,
-                duration = it.duration,
-                favorite = it.favorite,
-                folderName = it.folderName,
-                folderPath = file.parent!!,
-                imageUri = it.imageUri,
-                mediaStoreId = it.mediaStoreId,
-                path = it.path,
-                size = it.size,
-                title = it.title,
-            ) ?: MusicEntity(
+            musicEntity ?: MusicEntity(
                 album = it.album,
                 albumId = it.albumId,
                 artist = it.artist,
@@ -159,8 +144,8 @@ class MusicDataSource @Inject constructor(
         awaitClose { contentResolver.unregisterContentObserver(observer) }
     }.flowOn(Dispatchers.IO).distinctUntilChanged()
 
-    fun getAllMusic(): ArrayList<Music> {
-        val musicEntityList = ArrayList<Music>()
+    private fun getAllMusic(): ArrayList<Music> {
+        val musicList = ArrayList<Music>()
 
         contentResolver.query(
             MUSIC_COLLECTION_URI,
@@ -198,8 +183,8 @@ class MusicDataSource @Inject constructor(
                     }
 
 
-                    val uri = Uri.fromFile(File(path))
-                    val musicEntityData = Music(
+                    Uri.fromFile(File(path))
+                    val music = Music(
                         album = cursor.getString(albumColumnIndex),
                         albumId = cursor.getLong(albumIdColumnIndex),
                         artist = artist,
@@ -219,11 +204,11 @@ class MusicDataSource @Inject constructor(
                         size = cursor.getInt(sizeColumnIndex),
                         title = cursor.getString(titleColumnIndex),
                     )
-                    musicEntityList.add(musicEntityData)
+                    musicList.add(music)
                 }
             }
         }
-        return musicEntityList
+        return musicList
     }
 
 }

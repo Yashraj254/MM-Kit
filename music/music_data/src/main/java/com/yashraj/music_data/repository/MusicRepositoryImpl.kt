@@ -28,7 +28,11 @@ class MusicRepositoryImpl(
     }
 
     override suspend fun addMusicToPlaylist(music: Music) {
-        musicDao.upsertMusic(music.toMusicEntity())
+        val musicToAdd = musicDao.getMusicByPath(music.path)
+        musicToAdd?.let {
+            it.playlistId = music.playlistId
+            musicDao.upsertMusic(it)
+        }
     }
 
     override suspend fun createNewPlaylist(playlist: String) {

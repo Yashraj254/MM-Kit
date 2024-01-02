@@ -39,10 +39,7 @@ class MusicPlaybackController @Inject constructor(
         isRepeatOneEnabled: Boolean
     ) -> Unit
     )? = null
-
     init {
-        Log.d("TAG", "Session token: ")
-
         mediaControllerFuture.addListener({
             controllerListener()
         }, MoreExecutors.directExecutor())
@@ -86,7 +83,6 @@ class MusicPlaybackController @Inject constructor(
 
     override fun addMediaItems(musics: List<Music>) {
         val mediaItems = musics.map {
-//            Log.d("TAG", "${it.imageUri}\n${Uri.parse(it.imageUri)}")
            val uri = if(it.imageUri.isBlank())
                Uri.parse(
                    ContentResolver.SCHEME_ANDROID_RESOURCE
@@ -94,7 +90,6 @@ class MusicPlaybackController @Inject constructor(
                        + '/' + context.resources.getResourceTypeName(R.drawable.music_logo)
                        + '/' + context.resources.getResourceEntryName(R.drawable.music_logo) )
            else Uri.parse(it.imageUri)
-            Log.d("TAG", "$uri")
 
             MediaItem.Builder()
                 .setMediaId(it.path)

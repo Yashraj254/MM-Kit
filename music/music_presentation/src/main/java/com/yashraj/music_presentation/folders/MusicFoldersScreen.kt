@@ -26,6 +26,7 @@ import com.yashraj.music_presentation.components.MusicItem
 @Composable
 fun MusicFoldersScreen(
     viewModel: MusicDirectoriesViewModel = hiltViewModel(),
+    folderName:(String) -> Unit,
     navigateToFolderTracksScreen: (String) -> Unit
 ) {
     val state = viewModel.state.collectAsState().value
@@ -43,6 +44,7 @@ fun MusicFoldersScreen(
                 FolderItem(
                     folderName = folder.name,
                     onClick = {
+                        folderName(folder.name)
                         navigateToFolderTracksScreen(folder.path)
                     }
                 )

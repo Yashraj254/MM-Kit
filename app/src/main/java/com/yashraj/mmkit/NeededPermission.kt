@@ -22,6 +22,13 @@ enum class NeededPermission(
         title = "Read Videos Permission",
         description = "This permission is needed to read your videos. Please grant the permission.",
         permanentlyDeniedDescription = "This permission is needed to read your videos. Please grant the permission in app settings.",
+    ),
+
+    READ_EXTERNAL_STORAGE(
+        permission = android.Manifest.permission.READ_EXTERNAL_STORAGE,
+        title = "Read Media Permission",
+        description = "This permission is needed to read your videos and audio. Please grant the permission.",
+        permanentlyDeniedDescription = "This permission is needed to read your videos and audio. Please grant the permission in app settings.",
     );
 
     fun permissionTextProvider(isPermanentDenied: Boolean): String {

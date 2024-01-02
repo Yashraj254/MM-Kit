@@ -43,7 +43,7 @@ class VideoDataSource @Inject constructor(
         MediaStore.Video.Media.DURATION,
         MediaStore.Video.Media._ID,
         MediaStore.Video.Media.SIZE,
-        MediaStore.Video.Media.TITLE,
+        MediaStore.Video.Media.DISPLAY_NAME,
     )
 
     override fun startSync() {
@@ -152,7 +152,7 @@ class VideoDataSource @Inject constructor(
             val dateAddedColumnIndex = cursor.getColumnIndex(MediaStore.Video.Media.DATE_ADDED)
             val durationColumnIndex = cursor.getColumnIndex(MediaStore.Video.Media.DURATION)
             val sizeColumnIndex = cursor.getColumnIndex(MediaStore.Video.Media.SIZE)
-            val titleColumnIndex = cursor.getColumnIndex(MediaStore.Video.Media.TITLE)
+            val titleColumnIndex = cursor.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME)
             while (cursor.moveToNext()) {
                 val path = cursor.getString(dataColumnIndex)
                 if (path != null && File(path).exists()) {
