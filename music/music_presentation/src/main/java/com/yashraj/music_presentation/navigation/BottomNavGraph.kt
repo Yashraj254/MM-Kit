@@ -99,6 +99,8 @@ fun BottomNavGraph(
                         showPlayer = {
                             showPlayer(it)
                         },
+                        isPlaylistTracks = false,
+                        isFavoriteTracks = false,
                         musicState = musicState
                     )
                 }

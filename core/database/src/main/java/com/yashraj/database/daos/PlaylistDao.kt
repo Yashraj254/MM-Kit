@@ -1,10 +1,10 @@
-package com.yashraj.music_data.daos
+package com.yashraj.database.daos
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
-import com.yashraj.music_data.entities.PlaylistEntity
+import com.yashraj.database.entities.PlaylistEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

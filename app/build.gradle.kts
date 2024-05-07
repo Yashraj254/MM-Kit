@@ -1,5 +1,3 @@
-import com.android.build.api.dsl.LintOptions
-
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     id("mmkit.android.application")
@@ -46,6 +44,7 @@ dependencies {
     implementation(project(":core:di"))
     implementation(project(":core:ui"))
     implementation(project(":core:utils"))
+    implementation(project(":core:database"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

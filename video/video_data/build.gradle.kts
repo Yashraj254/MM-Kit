@@ -12,6 +12,7 @@ dependencies {
     implementation(project(":video:video_domain"))
     implementation(project(":core:di"))
     implementation(project(":core:utils"))
+    implementation(project(":core:database"))
 
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
@@ -29,4 +30,6 @@ dependencies {
     testImplementation(libs.junit4)
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+
 }

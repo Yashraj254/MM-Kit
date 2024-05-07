@@ -5,12 +5,11 @@ import android.content.ContentUris
 import android.database.ContentObserver
 import android.net.Uri
 import android.provider.MediaStore
-import com.yashraj.utils.MUSIC_COLLECTION_URI
+import com.yashraj.database.daos.VideoDao
+import com.yashraj.database.daos.VideoDirectoryDao
+import com.yashraj.database.entities.VideoDirectoryEntity
+import com.yashraj.database.entities.VideoEntity
 import com.yashraj.utils.VIDEO_COLLECTION_URI
-import com.yashraj.video_data.daos.VideoDirectoryDao
-import com.yashraj.video_data.daos.VideoDao
-import com.yashraj.video_data.entities.VideoDirectoryEntity
-import com.yashraj.video_data.entities.VideoEntity
 import com.yashraj.video_domain.models.Video
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -62,7 +61,7 @@ class VideoDataSource @Inject constructor(
         Dispatchers.Default
     ) {
         val directories = video.groupBy { File(it.path).parentFile!! }.map { (file, videos) ->
-            VideoDirectoryEntity(
+           VideoDirectoryEntity(
                 path = file.path,
                 name = file.name,
                 mediaCount = video.size,
@@ -99,16 +98,16 @@ class VideoDataSource @Inject constructor(
                 size = it.size,
                 title = it.title
             ) ?: VideoEntity(
-                    dateAdded = it.dateAdded,
-                    duration = it.duration,
-                    folderName = it.folderName,
-                    folderPath = file.parent!!,
-                    imageUri = it.imageUri,
-                    mediaStoreId = it.mediaStoreId,
-                    path = it.path,
-                    size = it.size,
-                    title = it.title,
-                )
+                dateAdded = it.dateAdded,
+                duration = it.duration,
+                folderName = it.folderName,
+                folderPath = file.parent!!,
+                imageUri = it.imageUri,
+                mediaStoreId = it.mediaStoreId,
+                path = it.path,
+                size = it.size,
+                title = it.title,
+            )
         }
 
         videoDao.upsertAllVideo(videoEntities)

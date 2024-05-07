@@ -6,12 +6,8 @@ import android.database.ContentObserver
 import android.net.Uri
 import android.provider.MediaStore
 import android.provider.MediaStore.Audio
-import android.util.Log
-import com.google.common.base.CharMatcher.`is`
-import com.yashraj.music_data.daos.DirectoryDao
-import com.yashraj.music_data.daos.MusicDao
-import com.yashraj.music_data.entities.DirectoryEntity
-import com.yashraj.music_data.entities.MusicEntity
+import com.yashraj.database.daos.DirectoryDao
+import com.yashraj.database.daos.MusicDao
 import com.yashraj.music_domain.models.Music
 import com.yashraj.utils.MUSIC_COLLECTION_URI
 import com.yashraj.utils.artworkUri
@@ -73,7 +69,7 @@ class MusicDataSource @Inject constructor(
         Dispatchers.Default
     ) {
         val directories = music.groupBy { File(it.path).parentFile!! }.map { (file, musics) ->
-            DirectoryEntity(
+            com.yashraj.database.entities.DirectoryEntity(
                 path = file.path,
                 name = file.name,
                 mediaCount = music.size,
@@ -99,7 +95,7 @@ class MusicDataSource @Inject constructor(
         val musicEntities = music.map {
             val file = File(it.path)
             val musicEntity = musicDao.getMusicByPath(it.path)
-            musicEntity ?: MusicEntity(
+            musicEntity ?: com.yashraj.database.entities.MusicEntity(
                 album = it.album,
                 albumId = it.albumId,
                 artist = it.artist,

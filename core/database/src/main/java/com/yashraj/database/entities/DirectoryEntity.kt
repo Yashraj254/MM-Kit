@@ -1,13 +1,13 @@
-package com.yashraj.video_data.entities
+package com.yashraj.database.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "video_directories"
+    tableName = "directories"
 )
-data class VideoDirectoryEntity(
+data class DirectoryEntity(
     @PrimaryKey
     @ColumnInfo(name = "path")
     val path: String,

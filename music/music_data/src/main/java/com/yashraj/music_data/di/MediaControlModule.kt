@@ -1,17 +1,12 @@
 package com.yashraj.music_data.di
 
-//import com.yashraj.music_data.service.MediaSessionCallback
-import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.session.MediaController
-import androidx.media3.session.MediaSession
 import androidx.media3.session.SessionToken
 import com.google.common.util.concurrent.ListenableFuture
 import com.yashraj.music_data.service.MediaSessionCallback
@@ -48,7 +43,6 @@ object MediaControlModule {
     @Provides
     @Singleton
     fun provideMediaControllerFuture(@ApplicationContext context: Context): ListenableFuture<MediaController> {
-        Log.d("TAG", "provideMediaControllerFuture: ")
         val sessionToken = SessionToken(context, ComponentName(context, MusicService::class.java))
         return MediaController.Builder(context, sessionToken).buildAsync()
     }
@@ -59,10 +53,12 @@ object MediaControlModule {
     fun provideMediaLibrarySessionCallback() = MediaSessionCallback()
 
 
-
     @Singleton
     @Provides
-    fun provideMusicPlaybackController(@ApplicationContext context:Context,listenableFuture: ListenableFuture<MediaController>): PlaybackController {
-        return MusicPlaybackController(context,listenableFuture)
+    fun provideMusicPlaybackController(
+        @ApplicationContext context: Context,
+        listenableFuture: ListenableFuture<MediaController>
+    ): PlaybackController {
+        return MusicPlaybackController(context, listenableFuture)
     }
 }

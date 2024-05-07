@@ -1,9 +1,6 @@
 package com.yashraj.music_data
 
 import androidx.media3.common.MediaItem
-import com.yashraj.music_data.entities.DirectoryEntity
-import com.yashraj.music_data.entities.MusicEntity
-import com.yashraj.music_data.entities.PlaylistEntity
 import com.yashraj.music_domain.models.Folder
 import com.yashraj.music_domain.models.Music
 import com.yashraj.music_domain.models.Playlist
@@ -31,7 +28,7 @@ fun MediaItem.toMusic() =
         title = mediaMetadata.title.toString()
     )
 
-fun MusicEntity.toMusic() = Music(
+fun com.yashraj.database.entities.MusicEntity.toMusic() = Music(
     album = album,
     albumId = albumId,
     artist = artist,
@@ -51,7 +48,7 @@ fun MusicEntity.toMusic() = Music(
     size = size,
     title = title,
 )
-fun Music.toMusicEntity() = MusicEntity(
+fun Music.toMusicEntity() = com.yashraj.database.entities.MusicEntity(
     album = album,
     albumId = albumId,
     artist = artist,
@@ -69,7 +66,7 @@ fun Music.toMusicEntity() = MusicEntity(
     title = title,
 )
 
-fun DirectoryEntity.toFolder() = Folder(
+fun com.yashraj.database.entities.DirectoryEntity.toFolder() = Folder(
     mediaCount = mediaCount,
     modified = modified,
     name = name,
@@ -77,12 +74,12 @@ fun DirectoryEntity.toFolder() = Folder(
     size = size
 )
 
-fun PlaylistEntity.toPlaylist() = Playlist(
+fun com.yashraj.database.entities.PlaylistEntity.toPlaylist() = Playlist(
     playlistId = playlistId,
     playlist = playlist
 )
 
-fun Playlist.toPlaylistEntity() = PlaylistEntity(
+fun Playlist.toPlaylistEntity() = com.yashraj.database.entities.PlaylistEntity(
     playlistId = playlistId,
     playlist = playlist
 )

@@ -1,14 +1,13 @@
 package com.yashraj.music_data.repository
 
-import com.yashraj.music_data.daos.DirectoryDao
-import com.yashraj.music_data.daos.MusicDao
-import com.yashraj.music_data.daos.PlaylistDao
-import com.yashraj.music_data.entities.DirectoryEntity
-import com.yashraj.music_data.entities.MusicEntity
-import com.yashraj.music_data.entities.PlaylistEntity
+import com.yashraj.database.daos.DirectoryDao
+import com.yashraj.database.daos.MusicDao
+import com.yashraj.database.daos.PlaylistDao
+import com.yashraj.database.entities.DirectoryEntity
+import com.yashraj.database.entities.MusicEntity
+import com.yashraj.database.entities.PlaylistEntity
 import com.yashraj.music_data.toFolder
 import com.yashraj.music_data.toMusic
-import com.yashraj.music_data.toMusicEntity
 import com.yashraj.music_data.toPlaylist
 import com.yashraj.music_data.toPlaylistEntity
 import com.yashraj.music_domain.models.Folder
@@ -69,6 +68,10 @@ class MusicRepositoryImpl(
 
     override suspend fun removeMusicFromFavorites(path: String) {
         musicDao.removeFromFavorites(path)
+    }
+
+    override suspend fun removeMusicFromPlaylist(path: String) {
+        musicDao.removeFromPlaylist(path)
     }
 
     override suspend fun deletePlaylist(playlist: Playlist) {

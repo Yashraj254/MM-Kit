@@ -11,6 +11,9 @@ fun PlaylistTracksScreen(
 ) {
     MusicTracksScreen(showPlayer = {
         showPlayer(it)
-    },  musicState = musicUiState)
+    },
+        isPlaylistTracks = true,
+        isFavoriteTracks = false,
+        musicState = musicUiState)
 
 }

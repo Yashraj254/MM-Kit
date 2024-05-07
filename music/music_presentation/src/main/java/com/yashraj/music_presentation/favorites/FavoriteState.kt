@@ -4,4 +4,4 @@ import com.yashraj.music_domain.models.Music
 
 data class FavoriteState(
     val musics: List<String>? = emptyList()
-    )
+)

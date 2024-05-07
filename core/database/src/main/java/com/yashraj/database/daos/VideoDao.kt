@@ -1,9 +1,9 @@
-package com.yashraj.video_data.daos
+package com.yashraj.database.daos
 
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
-import com.yashraj.video_data.entities.VideoEntity
+import com.yashraj.database.entities.VideoEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

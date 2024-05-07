@@ -12,7 +12,6 @@ import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.widget.Toast
 import androidx.core.text.isDigitsOnly
-import com.yashraj.utils.RealPathUtil
 import java.io.File
 
 val VIDEO_COLLECTION_URI: Uri

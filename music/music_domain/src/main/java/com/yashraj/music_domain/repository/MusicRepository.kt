@@ -29,6 +29,8 @@ interface MusicRepository {
 
     suspend fun removeMusicFromFavorites(path: String)
 
+    suspend fun removeMusicFromPlaylist(path: String)
+
     suspend fun deletePlaylist(playlist: Playlist)
 
 }

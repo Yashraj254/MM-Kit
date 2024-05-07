@@ -16,8 +16,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Favorite
-import androidx.compose.material.icons.rounded.FavoriteBorder
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.PauseCircle
 import androidx.compose.material.icons.rounded.PlayCircle
@@ -29,6 +29,7 @@ import androidx.compose.material.icons.rounded.SkipPrevious
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.LocalMinimumInteractiveComponentEnforcement
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
@@ -46,10 +47,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.yashraj.music_presentation.playlists.AddToPlaylistDialog
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
 import com.yashraj.music_domain.PlayerState
+import com.yashraj.music_presentation.playlists.AddToPlaylistDialog
 import com.yashraj.music_presentation.tracks.MusicViewModel
 import com.yashraj.music_presentation.tracks.SharedViewModel
 import com.yashraj.ui.LottieLoaderAnimation
@@ -58,13 +59,17 @@ import com.yashraj.utils.toTime
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun MusicPlayerScreen(
-//    musicPlayerViewModel.onEvent: (MusicPlayerEvent) -> Unit,
     sharedViewModel: SharedViewModel = hiltViewModel(),
     musicViewModel: MusicViewModel = hiltViewModel(),
     musicPlayerViewModel: MusicPlayerViewModel = hiltViewModel(),
     onCollapse: () -> Unit
 ) {
-
+    var favState by remember {
+        mutableStateOf(Favorite.REMOVE)
+    }
+    var favIcon by remember {
+        mutableStateOf(Icons.Default.FavoriteBorder)
+    }
     val musicPlaybackUiState = sharedViewModel.musicPlaybackUiState
     var showPlaylistDialog by remember {
         mutableStateOf(false)
@@ -96,7 +101,6 @@ fun MusicPlayerScreen(
                     modifier = Modifier.size(24.dp),
                     onClick = {
                         onCollapse()
-
                     }
                 ) {
                     Icon(
@@ -253,36 +257,28 @@ fun MusicPlayerScreen(
                             imageVector = Icons.Rounded.SkipNext,
                             contentDescription = "Skip next button"
                         )
-                        var favIcon by remember {
-                            mutableStateOf(Icons.Rounded.FavoriteBorder)
-                        }
-                        favIcon = if (currentMusic?.path?.let {
-                                musicViewModel.isAddedToFavorites(
-                                    it
+
+
+                        currentMusic?.path?.let {path->
+                            var checkedState by remember { mutableStateOf(musicViewModel.isAddedToFavorites(path)) }
+
+                            IconToggleButton(checked = checkedState, onCheckedChange = {
+                                if(checkedState)
+                                    musicViewModel.removeFromFavorites(path)
+                                else
+                                    musicViewModel.addToFavorites(path)
+                                checkedState = !checkedState
+                            }) {
+                                Icon(
+                                    modifier = Modifier
+                                        .size(32.dp),
+                                    imageVector = if(checkedState) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                                    contentDescription = "Favorite"
                                 )
-                            } == true) {
-                            Icons.Rounded.Favorite
-                        } else {
-                            Icons.Rounded.FavoriteBorder
+
+                            }
                         }
-                        Icon(
-                            modifier = Modifier
-                                .size(32.dp)
-                                .clickable {
-                                    if (currentMusic != null) {
-                                        favIcon =
-                                            if (musicViewModel.isAddedToFavorites(currentMusic.path)) {
-                                                musicViewModel.removeFromFavorites(currentMusic.path)
-                                                Icons.Rounded.FavoriteBorder
-                                            } else {
-                                                musicViewModel.addToFavorites(currentMusic.path)
-                                                Icons.Rounded.Favorite
-                                            }
-                                    }
-                                },
-                            imageVector = favIcon,
-                            contentDescription = "Favorite"
-                        )
+
 //                           Icon(
 //                            modifier = Modifier
 //                                .size(32.dp)

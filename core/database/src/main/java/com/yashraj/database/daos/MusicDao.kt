@@ -1,9 +1,9 @@
-package com.yashraj.music_data.daos
+package com.yashraj.database.daos
 
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
-import com.yashraj.music_data.entities.MusicEntity
+import com.yashraj.database.entities.MusicEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -38,5 +38,8 @@ interface MusicDao {
 
     @Query("UPDATE music_tracks SET favorite = 0 WHERE path = :path")
     suspend fun removeFromFavorites(path: String)
+
+    @Query("UPDATE music_tracks SET playlist_id = 0 WHERE path = :path")
+    suspend fun removeFromPlaylist(path: String)
 
 }

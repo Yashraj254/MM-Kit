@@ -1,10 +1,10 @@
 package com.yashraj.video_data.repository
 
 
-import com.yashraj.video_data.daos.VideoDirectoryDao
-import com.yashraj.video_data.daos.VideoDao
-import com.yashraj.video_data.entities.VideoDirectoryEntity
-import com.yashraj.video_data.entities.VideoEntity
+import com.yashraj.database.daos.VideoDao
+import com.yashraj.database.daos.VideoDirectoryDao
+import com.yashraj.database.entities.VideoDirectoryEntity
+import com.yashraj.database.entities.VideoEntity
 import com.yashraj.video_data.toFolder
 import com.yashraj.video_data.toVideo
 import com.yashraj.video_domain.models.Folder

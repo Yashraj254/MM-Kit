@@ -2,7 +2,7 @@ package com.yashraj.music_presentation.playlists
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yashraj.music_domain.models.Music
+import com.yashraj.music_domain.models.Playlist
 import com.yashraj.music_domain.usecases.MusicUseCases
 import com.yashraj.music_presentation.tracks.MusicState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -50,9 +50,9 @@ class MusicPlaylistViewModel @Inject constructor(private val musicUseCases: Musi
         }
     }
 
-    fun addToPlaylist(music: Music){
+    fun deletePlaylist(playlist: Playlist){
         viewModelScope.launch(Dispatchers.IO) {
-            musicUseCases.addToPlaylist(music)
+            musicUseCases.deletePlaylist(playlist)
         }
     }
 }

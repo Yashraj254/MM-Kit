@@ -2,9 +2,26 @@ package com.yashraj.music_domain.di
 
 import com.yashraj.music_domain.repository.MusicRepository
 import com.yashraj.music_domain.service.PlaybackController
+import com.yashraj.music_domain.usecases.AddToFavorites
+import com.yashraj.music_domain.usecases.AddToPlaylist
+import com.yashraj.music_domain.usecases.CreateNewPlaylist
+import com.yashraj.music_domain.usecases.DeletePlaylist
+import com.yashraj.music_domain.usecases.GetAllMusic
+import com.yashraj.music_domain.usecases.GetFolderTracks
+import com.yashraj.music_domain.usecases.GetMusicByPath
+import com.yashraj.music_domain.usecases.GetMusicDirectories
+import com.yashraj.music_domain.usecases.GetMusicFavorites
+import com.yashraj.music_domain.usecases.GetMusicPlaylists
+import com.yashraj.music_domain.usecases.GetPlaylistMusic
+import com.yashraj.music_domain.usecases.MusicUseCases
+import com.yashraj.music_domain.usecases.RemoveFromFavorites
+import com.yashraj.music_domain.usecases.RemoveFromPlaylist
 import com.yashraj.music_domain.usecases.player_usecases.AddMediaItems
 import com.yashraj.music_domain.usecases.player_usecases.DestroyMediaController
+import com.yashraj.music_domain.usecases.player_usecases.GetCurrentMusic
 import com.yashraj.music_domain.usecases.player_usecases.GetCurrentMusicPosition
+import com.yashraj.music_domain.usecases.player_usecases.GetMediaController
+import com.yashraj.music_domain.usecases.player_usecases.GetPlayerState
 import com.yashraj.music_domain.usecases.player_usecases.MusicPlayerUseCases
 import com.yashraj.music_domain.usecases.player_usecases.PauseMusic
 import com.yashraj.music_domain.usecases.player_usecases.PlayMusic
@@ -15,21 +32,6 @@ import com.yashraj.music_domain.usecases.player_usecases.SetMusicShuffleEnabled
 import com.yashraj.music_domain.usecases.player_usecases.SetPlayerRepeatOneEnabled
 import com.yashraj.music_domain.usecases.player_usecases.SkipNextMusic
 import com.yashraj.music_domain.usecases.player_usecases.SkipPreviousMusic
-import com.yashraj.music_domain.usecases.GetAllMusic
-import com.yashraj.music_domain.usecases.GetFolderTracks
-import com.yashraj.music_domain.usecases.GetMusicDirectories
-import com.yashraj.music_domain.usecases.GetMusicFavorites
-import com.yashraj.music_domain.usecases.MusicUseCases
-import com.yashraj.music_domain.usecases.AddToFavorites
-import com.yashraj.music_domain.usecases.AddToPlaylist
-import com.yashraj.music_domain.usecases.CreateNewPlaylist
-import com.yashraj.music_domain.usecases.GetMusicByPath
-import com.yashraj.music_domain.usecases.GetMusicPlaylists
-import com.yashraj.music_domain.usecases.GetPlaylistMusic
-import com.yashraj.music_domain.usecases.RemoveFromFavorites
-import com.yashraj.music_domain.usecases.player_usecases.GetCurrentMusic
-import com.yashraj.music_domain.usecases.player_usecases.GetMediaController
-import com.yashraj.music_domain.usecases.player_usecases.GetPlayerState
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,6 +51,7 @@ object MusicDomainModule {
             addToFavorites = AddToFavorites(repository),
             addToPlaylist = AddToPlaylist(repository),
             createNewPlaylist = CreateNewPlaylist(repository),
+            deletePlaylist = DeletePlaylist(repository),
             getAllMusic = GetAllMusic(repository),
             getMusicByPath = GetMusicByPath(repository),
             getMusicPlaylists = GetMusicPlaylists(repository),
@@ -56,7 +59,8 @@ object MusicDomainModule {
             getMusicDirectories = GetMusicDirectories(repository),
             getFolderTracks = GetFolderTracks(repository),
             getMusicFavorites = GetMusicFavorites(repository),
-            removeFromFavorites = RemoveFromFavorites(repository)
+            removeFromFavorites = RemoveFromFavorites(repository),
+            removeFromPlaylist = RemoveFromPlaylist(repository)
         )
     }
 

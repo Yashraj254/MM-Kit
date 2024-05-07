@@ -1,9 +1,9 @@
 package com.yashraj.video_data
 
 import androidx.media3.common.MediaItem
+import com.yashraj.database.entities.VideoDirectoryEntity
+import com.yashraj.database.entities.VideoEntity
 import com.yashraj.utils.Utils
-import com.yashraj.video_data.entities.VideoDirectoryEntity
-import com.yashraj.video_data.entities.VideoEntity
 import com.yashraj.video_domain.models.Folder
 import com.yashraj.video_domain.models.Video
 

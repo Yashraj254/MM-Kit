@@ -1,20 +1,15 @@
-package com.yashraj.mmkit.di
+package com.yashraj.database
 
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import androidx.media3.session.MediaSession
-import androidx.media3.common.util.UnstableApi
-import androidx.media3.exoplayer.ExoPlayer
+import android.media.session.MediaSession
 import androidx.room.Room
-import com.yashraj.mmkit.MainActivity
-import com.yashraj.mmkit.MediaDatabase
-import com.yashraj.music_data.daos.DirectoryDao
-import com.yashraj.music_data.daos.MusicDao
-import com.yashraj.music_data.daos.PlaylistDao
-import com.yashraj.music_data.service.MediaSessionCallback
-import com.yashraj.video_data.daos.VideoDao
-import com.yashraj.video_data.daos.VideoDirectoryDao
+import com.yashraj.database.daos.DirectoryDao
+import com.yashraj.database.daos.MusicDao
+import com.yashraj.database.daos.PlaylistDao
+import com.yashraj.database.daos.VideoDao
+import com.yashraj.database.daos.VideoDirectoryDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -52,26 +47,9 @@ object DatabaseModule {
     @Provides
     fun providePlaylistDao(db: MediaDatabase): PlaylistDao = db.playlistDao()
 
-     @Singleton
+    @Singleton
     @Provides
     fun provideVideoDirectoryDao(db: MediaDatabase): VideoDirectoryDao = db.videoDirectoryDao()
 
-    @UnstableApi
-    @Provides
-    @Singleton
-    fun provideMediaSession(
-        @ApplicationContext context: Context,
-        exoPlayer: ExoPlayer,
-        callback: MediaSessionCallback
-    ) = MediaSession.Builder(context, exoPlayer)
-        .setCallback(callback)
-        .setSessionActivity(
-            PendingIntent.getActivity(
-                context,
-                0,
-                Intent(context, MainActivity::class.java),
-                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-            ))
-        .build()
 
 }

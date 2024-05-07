@@ -1,5 +1,7 @@
 package com.yashraj.music_presentation.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,13 +25,15 @@ import com.yashraj.music_domain.models.Music
 fun MusicItem(
     music: Music,
     imageVector: ImageVector = Icons.Default.MusicNote,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
-            .clickable { onClick() },
+            .background(MaterialTheme.colorScheme.background)
+            .clickable { onClick() }
+            .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
@@ -38,6 +42,7 @@ fun MusicItem(
             tint = MaterialTheme.colorScheme.secondaryContainer,
             modifier = Modifier.padding(4.dp)
         )
+
         Column(
             modifier = Modifier
                 .padding(2.dp)

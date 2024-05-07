@@ -4,6 +4,7 @@ data class MusicUseCases(
     val addToFavorites: AddToFavorites,
     val addToPlaylist: AddToPlaylist,
     val createNewPlaylist: CreateNewPlaylist,
+    val deletePlaylist: DeletePlaylist,
     val getAllMusic: GetAllMusic,
     val getMusicByPath: GetMusicByPath,
     val getMusicPlaylists: GetMusicPlaylists,
@@ -11,5 +12,6 @@ data class MusicUseCases(
     val getMusicDirectories: GetMusicDirectories,
     val getFolderTracks: GetFolderTracks,
     val getMusicFavorites: GetMusicFavorites,
-    val removeFromFavorites: RemoveFromFavorites
+    val removeFromFavorites: RemoveFromFavorites,
+    val removeFromPlaylist: RemoveFromPlaylist
 )

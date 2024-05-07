@@ -1,6 +1,5 @@
 package com.yashraj.music_presentation.tracks
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yashraj.music_domain.models.Music
@@ -25,6 +24,12 @@ class MusicViewModel @Inject constructor(
     private val _favoriteMusicState = MutableStateFlow(MusicState())
     val favoriteMusicState: StateFlow<MusicState>
         get() = _favoriteMusicState
+
+    private val _selectedTracks = mutableListOf<Music>()
+    val selectedTracks: List<Music>
+        get() = _selectedTracks
+
+    var musicTracks = listOf<Music>()
 
     init {
         getAllMusic()
@@ -90,7 +95,13 @@ class MusicViewModel @Inject constructor(
     fun addToPlaylist(playlistId: Int, music: Music) {
         viewModelScope.launch {
             music.playlistId = playlistId
-                musicUseCases.addToPlaylist(music)
+            musicUseCases.addToPlaylist(music)
+        }
+    }
+
+  fun removeFromPlaylist(music: Music) {
+        viewModelScope.launch {
+            musicUseCases.removeFromPlaylist(music.path)
         }
     }
 

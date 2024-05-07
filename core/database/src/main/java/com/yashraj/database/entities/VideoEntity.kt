@@ -1,4 +1,4 @@
-package com.yashraj.video_data.entities
+package com.yashraj.database.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
